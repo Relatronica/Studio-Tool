@@ -9,6 +9,24 @@ import { Exam, PlannerSettings, StudyBlock } from './types';
 import { generateSchedule } from './utils/scheduler';
 
 const STORAGE_KEY = 'studio-tool-state-v1';
+const THEME_STORAGE_KEY = 'studio-tool-theme';
+
+export type ThemeMode = 'light' | 'dark';
+
+function getInitialTheme(): ThemeMode {
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === 'light' || saved === 'dark') {
+      return saved;
+    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+  } catch {
+    // ignore
+  }
+  return 'light';
+}
 
 interface StoredState {
   exams: Exam[];
@@ -44,6 +62,25 @@ export function App() {
   const [selectedExamId, setSelectedExamId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [theme, setTheme] = useState<ThemeMode>(getInitialTheme);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // ignore
+    }
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -142,7 +179,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex bg-white text-[#37352f]">
+    <div className="min-h-screen flex bg-white dark:bg-[#191919] text-[#37352f] dark:text-[#e3e2df]">
       <Sidebar
         activeView={activeView}
         onSelectView={setActiveView}
@@ -154,6 +191,8 @@ export function App() {
         onSelectExam={setSelectedExamId}
         mobileOpen={mobileOpen}
         setMobileOpen={setMobileOpen}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
       />
 
       <main className="flex-1 min-w-0 overflow-y-auto pt-10 lg:pt-0">
@@ -207,7 +246,7 @@ export function App() {
 
       {/* Notion-style subtle toast */}
       {toast && (
-        <div className="fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-lg bg-[#37352f] text-white text-xs font-medium shadow-lg">
+        <div className="fixed bottom-5 right-5 z-50 px-4 py-2.5 rounded-lg bg-[#37352f] dark:bg-[#2c2c2c] text-white dark:text-[#e3e2df] dark:border dark:border-[#3c3c3c] text-xs font-medium shadow-lg">
           {toast}
         </div>
       )}

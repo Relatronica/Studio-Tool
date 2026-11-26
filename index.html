@@ -10,8 +10,16 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <script>
+      try {
+        const t = localStorage.getItem('studio-tool-theme');
+        if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    </script>
   </head>
-  <body class="bg-white text-[#37352f] antialiased selection:bg-[#2383e2]/20">
+  <body class="bg-white dark:bg-[#191919] text-[#37352f] dark:text-[#e3e2df] antialiased selection:bg-[#2383e2]/20">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

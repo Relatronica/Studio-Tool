@@ -4,6 +4,7 @@ import {
   BookOpen,
   Clock,
   Sun,
+  Moon,
   RefreshCw,
   RotateCcw,
   Menu,
@@ -11,6 +12,7 @@ import {
 } from 'lucide-react';
 import { Exam, ExamFeasibility } from '../types';
 import { EXAM_COLORS } from '../utils/colors';
+import { ThemeMode } from '../App';
 
 export type ViewType = 'today' | 'calendar' | 'exams' | 'availability';
 
@@ -25,6 +27,8 @@ interface SidebarProps {
   onSelectExam: (examId: string) => void;
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
+  theme: ThemeMode;
+  onToggleTheme: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -38,6 +42,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectExam,
   mobileOpen,
   setMobileOpen,
+  theme,
+  onToggleTheme,
 }) => {
   const navItems: { id: ViewType; label: string; icon: React.ReactNode }[] = [
     { id: 'today', label: 'Oggi', icon: <Sun className="w-4 h-4 text-[#d9730d]" /> },
@@ -49,30 +55,46 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const sortedExams = [...exams].sort((a, b) => a.examDate.localeCompare(b.examDate));
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-[#f7f7f5] border-r border-[#ecebe8] select-none w-60">
+    <div className="flex flex-col h-full bg-[#f7f7f5] dark:bg-[#202020] border-r border-[#ecebe8] dark:border-[#2f2f2f] select-none w-60">
       {/* Workspace Header */}
-      <div className="flex items-center justify-between px-3.5 py-3 border-b border-[#ecebe8]/70">
+      <div className="flex items-center justify-between px-3.5 py-3 border-b border-[#ecebe8]/70 dark:border-[#2f2f2f]">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="w-6 h-6 rounded bg-[#37352f] text-white flex items-center justify-center text-xs font-semibold shrink-0">
+          <div className="w-6 h-6 rounded bg-[#37352f] dark:bg-[#e3e2df] text-white dark:text-[#191919] flex items-center justify-center text-xs font-semibold shrink-0">
             S
           </div>
-          <span className="font-semibold text-sm text-[#37352f] truncate">Studio</span>
-          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#e9e9e7] text-[#787774]">
+          <span className="font-semibold text-sm text-[#37352f] dark:text-[#e3e2df] truncate">
+            Studio
+          </span>
+          <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[#e9e9e7] dark:bg-[#2c2c2c] text-[#787774] dark:text-[#9b9a97]">
             Planner
           </span>
         </div>
-        <button
-          onClick={() => setMobileOpen(false)}
-          className="lg:hidden p-1 rounded hover:bg-[#e8e8e6] text-[#787774]"
-          aria-label="Chiudi menu"
-        >
-          <X className="w-4 h-4" />
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={onToggleTheme}
+            className="p-1.5 rounded hover:bg-[#e8e8e6] dark:hover:bg-[#2c2c2c] text-[#787774] dark:text-[#9b9a97] hover:text-[#37352f] dark:hover:text-[#e3e2df] transition-colors"
+            title={theme === 'dark' ? 'Passa a tema chiaro' : 'Passa a tema scuro'}
+            aria-label={theme === 'dark' ? 'Passa a tema chiaro' : 'Passa a tema scuro'}
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-4 h-4 text-[#e6b450]" />
+            ) : (
+              <Moon className="w-4 h-4" />
+            )}
+          </button>
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="lg:hidden p-1 rounded hover:bg-[#e8e8e6] dark:hover:bg-[#2c2c2c] text-[#787774] dark:text-[#9b9a97]"
+            aria-label="Chiudi menu"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
       {/* Primary Navigation */}
       <div className="px-2 py-2.5 space-y-0.5">
-        <div className="px-2 pb-1 text-[11px] font-medium text-[#9b9a97] uppercase tracking-wider">
+        <div className="px-2 pb-1 text-[11px] font-medium text-[#9b9a97] dark:text-[#787774] uppercase tracking-wider">
           Spazio di lavoro
         </div>
         {navItems.map((item) => {
@@ -86,8 +108,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
               }}
               className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-[13.5px] transition-colors ${
                 isActive
-                  ? 'bg-[#e8e8e6] text-[#37352f] font-medium'
-                  : 'text-[#5a5852] hover:bg-[#ebebea]'
+                  ? 'bg-[#e8e8e6] dark:bg-[#2c2c2c] text-[#37352f] dark:text-[#e3e2df] font-medium'
+                  : 'text-[#5a5852] dark:text-[#a5a4a0] hover:bg-[#ebebea] dark:hover:bg-[#282828]'
               }`}
             >
               {item.icon}
@@ -100,14 +122,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Exams Quick List */}
       <div className="px-2 py-2 flex-1 overflow-y-auto">
         <div className="px-2 pb-1.5 flex items-center justify-between">
-          <span className="text-[11px] font-medium text-[#9b9a97] uppercase tracking-wider">
+          <span className="text-[11px] font-medium text-[#9b9a97] dark:text-[#787774] uppercase tracking-wider">
             I tuoi esami
           </span>
-          <span className="text-[11px] text-[#9b9a97] tabular-nums">{exams.length}</span>
+          <span className="text-[11px] text-[#9b9a97] dark:text-[#787774] tabular-nums">
+            {exams.length}
+          </span>
         </div>
         <div className="space-y-0.5">
           {sortedExams.length === 0 ? (
-            <p className="px-2.5 py-2 text-xs text-[#9b9a97]">Nessun esame inserito</p>
+            <p className="px-2.5 py-2 text-xs text-[#9b9a97] dark:text-[#787774]">
+              Nessun esame inserito
+            </p>
           ) : (
             sortedExams.map((exam) => {
               const feas = feasibility[exam.id];
@@ -123,8 +149,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   }}
                   className={`w-full flex items-center justify-between gap-2 px-2.5 py-1.5 rounded-md text-[13px] transition-colors ${
                     isSelected
-                      ? 'bg-[#e8e8e6] text-[#37352f] font-medium'
-                      : 'text-[#5a5852] hover:bg-[#ebebea]'
+                      ? 'bg-[#e8e8e6] dark:bg-[#2c2c2c] text-[#37352f] dark:text-[#e3e2df] font-medium'
+                      : 'text-[#5a5852] dark:text-[#a5a4a0] hover:bg-[#ebebea] dark:hover:bg-[#282828]'
                   }`}
                 >
                   <div className="flex items-center gap-2 min-w-0">
@@ -135,9 +161,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <span
                       className={`text-[11px] px-1.5 py-0.5 rounded tabular-nums shrink-0 ${
                         feas.status === 'behind'
-                          ? 'bg-[#fdebec] text-[#9e3336]'
+                          ? 'bg-[#fdebec] dark:bg-[#3b2022] text-[#9e3336] dark:text-[#eb7c7f]'
                           : feas.status === 'completed'
-                          ? 'bg-[#edf3ec] text-[#356b46]'
+                          ? 'bg-[#edf3ec] dark:bg-[#1e3326] text-[#356b46] dark:text-[#6cc08a]'
                           : `${color.bg} ${color.text}`
                       }`}
                     >
@@ -152,17 +178,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Bottom Actions */}
-      <div className="p-2.5 border-t border-[#ecebe8] space-y-1">
+      <div className="p-2.5 border-t border-[#ecebe8] dark:border-[#2f2f2f] space-y-1">
         <button
           onClick={onRecalculate}
-          className="w-full flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#e2e1dd] hover:bg-[#f1f1ef] text-[13px] font-medium text-[#37352f] shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-white dark:bg-[#252525] border border-[#e2e1dd] dark:border-[#363636] hover:bg-[#f1f1ef] dark:hover:bg-[#2e2e2e] text-[13px] font-medium text-[#37352f] dark:text-[#e3e2df] shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition-colors"
         >
           <RefreshCw className="w-3.5 h-3.5 text-[#2383e2]" />
           <span>Ricalcola piano</span>
         </button>
         <button
           onClick={onResetDemo}
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-1 rounded-md hover:bg-[#ebebea] text-[12px] text-[#787774] transition-colors"
+          className="w-full flex items-center justify-center gap-1.5 px-3 py-1 rounded-md hover:bg-[#ebebea] dark:hover:bg-[#282828] text-[12px] text-[#787774] dark:text-[#9b9a97] transition-colors"
         >
           <RotateCcw className="w-3 h-3" />
           <span>Ripristina dati demo</span>
@@ -176,7 +202,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Mobile top bar button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed top-3 left-3 z-30 p-2 rounded-md bg-white border border-[#e9e9e7] shadow-sm text-[#37352f]"
+        className="lg:hidden fixed top-3 left-3 z-30 p-2 rounded-md bg-white dark:bg-[#252525] border border-[#e9e9e7] dark:border-[#363636] shadow-sm text-[#37352f] dark:text-[#e3e2df]"
         aria-label="Apri menu"
       >
         <Menu className="w-4 h-4" />
@@ -189,7 +215,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-40 flex">
           <div
-            className="fixed inset-0 bg-black/25 backdrop-blur-[1px]"
+            className="fixed inset-0 bg-black/25 dark:bg-black/50 backdrop-blur-[1px]"
             onClick={() => setMobileOpen(false)}
           />
           <div className="relative z-50 h-full">{sidebarContent}</div>
@@ -198,4 +224,3 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </>
   );
 };
-

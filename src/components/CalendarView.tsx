@@ -94,10 +94,10 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       {/* Header */}
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="text-xs font-medium text-[#9b9a97] uppercase tracking-wider">
+          <div className="text-xs font-medium text-[#9b9a97] dark:text-[#787774] uppercase tracking-wider">
             Pianificazione
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#37352f] flex items-center gap-3 mt-1">
+          <h1 className="text-3xl font-bold tracking-tight text-[#37352f] dark:text-[#e3e2df] flex items-center gap-3 mt-1">
             <span>🗓️</span>
             <span>Calendario di Studio</span>
           </h1>
@@ -105,41 +105,41 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
         <div className="flex items-center gap-2 flex-wrap">
           {/* Today & Navigation */}
-          <div className="flex items-center rounded-md border border-[#e2e1dd] bg-white overflow-hidden">
+          <div className="flex items-center rounded-md border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#202020] overflow-hidden">
             <button
               onClick={() => navigate(-1)}
-              className="p-1.5 hover:bg-[#f1f1ef] text-[#5a5852]"
+              className="p-1.5 hover:bg-[#f1f1ef] dark:hover:bg-[#2c2c2c] text-[#5a5852] dark:text-[#a5a4a0]"
               aria-label="Precedente"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => setAnchorISO(todayISO)}
-              className="px-2.5 py-1 text-xs font-medium text-[#37352f] hover:bg-[#f1f1ef] border-x border-[#e2e1dd]"
+              className="px-2.5 py-1 text-xs font-medium text-[#37352f] dark:text-[#e3e2df] hover:bg-[#f1f1ef] dark:hover:bg-[#2c2c2c] border-x border-[#e2e1dd] dark:border-[#363636]"
             >
               Oggi
             </button>
             <button
               onClick={() => navigate(1)}
-              className="p-1.5 hover:bg-[#f1f1ef] text-[#5a5852]"
+              className="p-1.5 hover:bg-[#f1f1ef] dark:hover:bg-[#2c2c2c] text-[#5a5852] dark:text-[#a5a4a0]"
               aria-label="Successivo"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
 
-          <span className="text-sm font-semibold text-[#37352f] capitalize px-2 min-w-[160px] text-center">
+          <span className="text-sm font-semibold text-[#37352f] dark:text-[#e3e2df] capitalize px-2 min-w-[160px] text-center">
             {headerLabel}
           </span>
 
           {/* Mode toggle */}
-          <div className="flex items-center rounded-md border border-[#e2e1dd] bg-[#f7f7f5] p-0.5">
+          <div className="flex items-center rounded-md border border-[#e2e1dd] dark:border-[#363636] bg-[#f7f7f5] dark:bg-[#202020] p-0.5">
             <button
               onClick={() => setMode('week')}
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium transition-colors ${
                 mode === 'week'
-                  ? 'bg-white text-[#37352f] shadow-xs'
-                  : 'text-[#787774] hover:text-[#37352f]'
+                  ? 'bg-white dark:bg-[#2c2c2c] text-[#37352f] dark:text-[#e3e2df] shadow-xs'
+                  : 'text-[#787774] dark:text-[#9b9a97] hover:text-[#37352f] dark:hover:text-[#e3e2df]'
               }`}
             >
               <CalendarDays className="w-3.5 h-3.5" />
@@ -149,8 +149,8 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
               onClick={() => setMode('month')}
               className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium transition-colors ${
                 mode === 'month'
-                  ? 'bg-white text-[#37352f] shadow-xs'
-                  : 'text-[#787774] hover:text-[#37352f]'
+                  ? 'bg-white dark:bg-[#2c2c2c] text-[#37352f] dark:text-[#e3e2df] shadow-xs'
+                  : 'text-[#787774] dark:text-[#9b9a97] hover:text-[#37352f] dark:hover:text-[#e3e2df]'
               }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
@@ -161,22 +161,22 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       </header>
 
       {/* Legend */}
-      <div className="flex flex-wrap items-center gap-3 text-xs text-[#787774]">
+      <div className="flex flex-wrap items-center gap-3 text-xs text-[#787774] dark:text-[#9b9a97]">
         <span>Clicca su un blocco per completarlo · Usa</span>
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#f1f1ef] text-[#5a5852]">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-[#f1f1ef] dark:bg-[#2c2c2c] text-[#5a5852] dark:text-[#a5a4a0]">
           <Ban className="w-3 h-3" /> Giorno libero
         </span>
         <span>per bloccare una giornata e ricalcolare automaticamente.</span>
       </div>
 
       {/* Calendar Grid */}
-      <div className="border border-[#e9e9e7] rounded-lg overflow-hidden bg-white">
+      <div className="border border-[#e9e9e7] dark:border-[#2f2f2f] rounded-lg overflow-hidden bg-white dark:bg-[#191919]">
         {/* Weekday Headers */}
-        <div className="grid grid-cols-7 border-b border-[#e9e9e7] bg-[#f7f7f5]">
+        <div className="grid grid-cols-7 border-b border-[#e9e9e7] dark:border-[#2f2f2f] bg-[#f7f7f5] dark:bg-[#202020]">
           {[1, 2, 3, 4, 5, 6, 0].map((dow) => (
             <div
               key={dow}
-              className="px-2 py-2 text-center text-[11px] font-semibold text-[#787774] uppercase tracking-wider border-r last:border-r-0 border-[#e9e9e7]"
+              className="px-2 py-2 text-center text-[11px] font-semibold text-[#787774] dark:text-[#9b9a97] uppercase tracking-wider border-r last:border-r-0 border-[#e9e9e7] dark:border-[#2f2f2f]"
             >
               {WEEKDAY_NAMES_SHORT[dow]}
             </div>
@@ -184,7 +184,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
         </div>
 
         {/* Day Cells */}
-        <div className="grid grid-cols-7 divide-x divide-y divide-[#e9e9e7]">
+        <div className="grid grid-cols-7 divide-x divide-y divide-[#e9e9e7] dark:divide-[#2f2f2f]">
           {daysToRender.map((iso) => {
             const d = parseISODate(iso);
             const isToday = iso === todayISO;
@@ -200,9 +200,11 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                 key={iso}
                 className={`p-2 flex flex-col gap-1.5 transition-colors ${
                   mode === 'week' ? 'min-h-[260px]' : 'min-h-[125px]'
-                } ${isOutsideMonth ? 'bg-[#fbfbfa] opacity-60' : 'bg-white'} ${
-                  isBlocked ? 'bg-[#f7f7f5]' : ''
-                }`}
+                } ${
+                  isOutsideMonth
+                    ? 'bg-[#fbfbfa] dark:bg-[#171717] opacity-60'
+                    : 'bg-white dark:bg-[#1e1e1e]'
+                } ${isBlocked ? 'bg-[#f7f7f5] dark:bg-[#232323]' : ''}`}
               >
                 {/* Day Header */}
                 <div className="flex items-center justify-between gap-1">
@@ -211,13 +213,13 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                       className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold tabular-nums ${
                         isToday
                           ? 'bg-[#eb5757] text-white'
-                          : 'text-[#37352f]'
+                          : 'text-[#37352f] dark:text-[#e3e2df]'
                       }`}
                     >
                       {d.getDate()}
                     </span>
                     {totalDayHours > 0 && (
-                      <span className="text-[10px] text-[#9b9a97] tabular-nums">
+                      <span className="text-[10px] text-[#9b9a97] dark:text-[#787774] tabular-nums">
                         {formatHours(totalDayHours)}
                       </span>
                     )}
@@ -229,8 +231,8 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                       title={isBlocked ? 'Sblocca giornata' : 'Segna come giorno libero'}
                       className={`p-1 rounded transition-colors ${
                         isBlocked
-                          ? 'text-[#d44c47] bg-[#fdebec]'
-                          : 'text-[#c2c0ba] hover:text-[#5a5852] hover:bg-[#f1f1ef]'
+                          ? 'text-[#d44c47] dark:text-[#eb7c7f] bg-[#fdebec] dark:bg-[#3b2022]'
+                          : 'text-[#c2c0ba] dark:text-[#555555] hover:text-[#5a5852] dark:hover:text-[#a5a4a0] hover:bg-[#f1f1ef] dark:hover:bg-[#2c2c2c]'
                       }`}
                     >
                       <Ban className="w-3 h-3" />
@@ -242,7 +244,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                 {dayExams.map((ex) => (
                   <div
                     key={ex.id}
-                    className="flex items-center gap-1 px-1.5 py-1 rounded bg-[#37352f] text-white text-[11px] font-medium"
+                    className="flex items-center gap-1 px-1.5 py-1 rounded bg-[#37352f] dark:bg-[#e3e2df] text-white dark:text-[#191919] text-[11px] font-medium"
                   >
                     <Flag className="w-3 h-3 shrink-0" />
                     <span className="truncate">
@@ -253,7 +255,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
                 {/* Blocked Label */}
                 {isBlocked && dayBlocks.length === 0 && (
-                  <div className="mt-1 px-1.5 py-1 rounded border border-dashed border-[#d3d1cb] text-[11px] text-[#9b9a97] text-center">
+                  <div className="mt-1 px-1.5 py-1 rounded border border-dashed border-[#d3d1cb] dark:border-[#3c3c3c] text-[11px] text-[#9b9a97] dark:text-[#787774] text-center">
                     Giorno libero
                   </div>
                 )}
@@ -271,13 +273,13 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                         onClick={() => onToggleBlock(block.id)}
                         className={`w-full text-left p-1.5 rounded border transition-all ${
                           block.completed
-                            ? 'bg-[#fbfbfa] border-[#e9e9e7] opacity-65'
-                            : `${color.bgSubtle} ${color.border} hover:brightness-97`
+                            ? 'bg-[#fbfbfa] dark:bg-[#252525] border-[#e9e9e7] dark:border-[#2f2f2f] opacity-65'
+                            : `${color.bgSubtle} ${color.border} hover:brightness-97 dark:hover:brightness-110`
                         }`}
                       >
                         <div className="flex items-start gap-1.5">
                           {block.completed ? (
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#448361] shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#448361] dark:text-[#6cc08a] shrink-0 mt-0.5" />
                           ) : (
                             <Circle className={`w-3.5 h-3.5 shrink-0 mt-0.5 ${color.text}`} />
                           )}
@@ -285,18 +287,22 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                             <div className="flex items-center justify-between gap-1">
                               <span
                                 className={`text-[11px] font-semibold truncate ${
-                                  block.completed ? 'line-through text-[#9b9a97]' : color.text
+                                  block.completed
+                                    ? 'line-through text-[#9b9a97] dark:text-[#6b6a67]'
+                                    : color.text
                                 }`}
                               >
                                 {exam.emoji} {exam.name}
                               </span>
-                              <span className="text-[10px] text-[#787774] tabular-nums shrink-0">
+                              <span className="text-[10px] text-[#787774] dark:text-[#9b9a97] tabular-nums shrink-0">
                                 {formatHours(block.plannedHours)}
                               </span>
                             </div>
                             <p
                               className={`text-[11px] leading-tight mt-0.5 truncate ${
-                                block.completed ? 'line-through text-[#9b9a97]' : 'text-[#5a5852]'
+                                block.completed
+                                  ? 'line-through text-[#9b9a97] dark:text-[#6b6a67]'
+                                  : 'text-[#5a5852] dark:text-[#a5a4a0]'
                               }`}
                             >
                               {block.title}
@@ -315,4 +321,3 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     </div>
   );
 };
-

@@ -125,10 +125,10 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
       {/* Header */}
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <div className="text-xs font-medium text-[#9b9a97] uppercase tracking-wider">
+          <div className="text-xs font-medium text-[#9b9a97] dark:text-[#787774] uppercase tracking-wider">
             Database Materie
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#37352f] flex items-center gap-3 mt-1">
+          <h1 className="text-3xl font-bold tracking-tight text-[#37352f] dark:text-[#e3e2df] flex items-center gap-3 mt-1">
             <span>🎯</span>
             <span>Esami e Libri</span>
           </h1>
@@ -146,16 +146,20 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
       {creating && (
         <form
           onSubmit={handleCreateExam}
-          className="rounded-lg border border-[#b9deee] bg-[#f7fafc] p-5 space-y-4"
+          className="rounded-lg border border-[#b9deee] dark:border-[#264b63] bg-[#f7fafc] dark:bg-[#172834] p-5 space-y-4"
         >
-          <h2 className="text-sm font-semibold text-[#37352f]">Aggiungi un nuovo esame</h2>
+          <h2 className="text-sm font-semibold text-[#37352f] dark:text-[#e3e2df]">
+            Aggiungi un nuovo esame
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">Icona</label>
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
+                Icona
+              </label>
               <select
                 value={newEmoji}
                 onChange={(e) => setNewEmoji(e.target.value)}
-                className="w-full px-2.5 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm"
+                className="w-full px-2.5 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-sm"
               >
                 {EMOJI_PRESETS.map((em) => (
                   <option key={em} value={em}>
@@ -165,7 +169,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
               </select>
             </div>
             <div className="sm:col-span-6">
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
                 Nome esame
               </label>
               <input
@@ -174,11 +178,11 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                 placeholder="es. Storia Contemporanea"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm focus:outline-none focus:border-[#2383e2]"
+                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] placeholder:text-[#9b9a97] dark:placeholder:text-[#6b6a67] text-sm focus:outline-none focus:border-[#2383e2]"
               />
             </div>
             <div className="sm:col-span-4">
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
                 Data esame
               </label>
               <input
@@ -186,14 +190,16 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                 required
                 value={newDate}
                 onChange={(e) => setNewDate(e.target.value)}
-                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm focus:outline-none focus:border-[#2383e2]"
+                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-sm focus:outline-none focus:border-[#2383e2]"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">Colore</label>
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
+                Colore
+              </label>
               <div className="flex items-center gap-1.5 pt-1">
                 {COLOR_OPTIONS.map((c) => (
                   <button
@@ -201,20 +207,22 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                     type="button"
                     onClick={() => setNewColor(c)}
                     className={`w-5 h-5 rounded-full ${EXAM_COLORS[c].dot} ${
-                      newColor === c ? 'ring-2 ring-offset-2 ring-[#37352f]' : 'opacity-70'
+                      newColor === c
+                        ? 'ring-2 ring-offset-2 ring-[#37352f] dark:ring-[#e3e2df] dark:ring-offset-[#172834]'
+                        : 'opacity-70'
                     }`}
                   />
                 ))}
               </div>
             </div>
             <div>
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
                 Priorità
               </label>
               <select
                 value={newPriority}
                 onChange={(e) => setNewPriority(e.target.value as Priority)}
-                className="w-full px-2.5 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm"
+                className="w-full px-2.5 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-sm"
               >
                 <option value="high">Alta</option>
                 <option value="medium">Media</option>
@@ -222,7 +230,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
               </select>
             </div>
             <div>
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
                 Giorni di ripasso finale
               </label>
               <input
@@ -231,14 +239,14 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                 max={14}
                 value={newReviewDays}
                 onChange={(e) => setNewReviewDays(Number(e.target.value))}
-                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm"
+                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-sm"
               />
             </div>
           </div>
 
-          <div className="pt-2 border-t border-[#e2e1dd] grid grid-cols-1 sm:grid-cols-12 gap-3">
+          <div className="pt-2 border-t border-[#e2e1dd] dark:border-[#264b63] grid grid-cols-1 sm:grid-cols-12 gap-3">
             <div className="sm:col-span-6">
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
                 Primo libro / dispensa
               </label>
               <input
@@ -246,11 +254,11 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                 placeholder="es. Manuale principale"
                 value={newBookTitle}
                 onChange={(e) => setNewBookTitle(e.target.value)}
-                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm"
+                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] placeholder:text-[#9b9a97] dark:placeholder:text-[#6b6a67] text-sm"
               />
             </div>
             <div className="sm:col-span-3">
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
                 Pagine totali
               </label>
               <input
@@ -258,11 +266,11 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                 min={1}
                 value={newBookPages}
                 onChange={(e) => setNewBookPages(Number(e.target.value))}
-                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm"
+                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-sm"
               />
             </div>
             <div className="sm:col-span-3">
-              <label className="block text-[11px] font-medium text-[#787774] mb-1">
+              <label className="block text-[11px] font-medium text-[#787774] dark:text-[#9b9a97] mb-1">
                 Pagine / ora
               </label>
               <input
@@ -270,7 +278,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                 min={1}
                 value={newBookPph}
                 onChange={(e) => setNewBookPph(Number(e.target.value))}
-                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] bg-white text-sm"
+                className="w-full px-3 py-1.5 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-sm"
               />
             </div>
           </div>
@@ -279,7 +287,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
             <button
               type="button"
               onClick={() => setCreating(false)}
-              className="px-3 py-1.5 rounded text-xs font-medium text-[#787774] hover:bg-[#ebebea]"
+              className="px-3 py-1.5 rounded text-xs font-medium text-[#787774] dark:text-[#9b9a97] hover:bg-[#ebebea] dark:hover:bg-[#282828]"
             >
               Annulla
             </button>
@@ -303,12 +311,14 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
           return (
             <div
               key={exam.id}
-              className={`rounded-lg border transition-all bg-white overflow-hidden ${
-                isHighlighted ? 'border-[#2383e2] ring-1 ring-[#2383e2]/20' : 'border-[#e9e9e7]'
+              className={`rounded-lg border transition-all bg-white dark:bg-[#202020] overflow-hidden ${
+                isHighlighted
+                  ? 'border-[#2383e2] ring-1 ring-[#2383e2]/20'
+                  : 'border-[#e9e9e7] dark:border-[#2f2f2f]'
               }`}
             >
               {/* Card Header */}
-              <div className="p-5 border-b border-[#ecebe8] bg-[#fbfbfa] flex flex-wrap items-start justify-between gap-4">
+              <div className="p-5 border-b border-[#ecebe8] dark:border-[#2f2f2f] bg-[#fbfbfa] dark:bg-[#252525] flex flex-wrap items-start justify-between gap-4">
                 <div className="flex items-start gap-3 min-w-0 flex-1">
                   <span className="text-2xl mt-0.5">{exam.emoji}</span>
                   <div className="min-w-0 flex-1 space-y-2">
@@ -317,18 +327,18 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                         type="text"
                         value={exam.name}
                         onChange={(e) => onUpdateExam({ ...exam, name: e.target.value })}
-                        className="text-lg font-semibold text-[#37352f] bg-transparent border-b border-transparent hover:border-[#d3d1cb] focus:border-[#2383e2] focus:outline-none px-0.5"
+                        className="text-lg font-semibold text-[#37352f] dark:text-[#e3e2df] bg-transparent border-b border-transparent hover:border-[#d3d1cb] dark:hover:border-[#4a4a4a] focus:border-[#2383e2] focus:outline-none px-0.5"
                       />
 
                       {feas && (
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
                             feas.status === 'completed'
-                              ? 'bg-[#edf3ec] text-[#356b46]'
+                              ? 'bg-[#edf3ec] dark:bg-[#1e3326] text-[#356b46] dark:text-[#6cc08a]'
                               : feas.status === 'behind'
-                              ? 'bg-[#fdebec] text-[#9e3336]'
+                              ? 'bg-[#fdebec] dark:bg-[#3b2022] text-[#9e3336] dark:text-[#eb7c7f]'
                               : feas.status === 'tight'
-                              ? 'bg-[#fbf3db] text-[#8c5a12]'
+                              ? 'bg-[#fbf3db] dark:bg-[#382d16] text-[#8c5a12] dark:text-[#e6b450]'
                               : `${color.bg} ${color.text}`
                           }`}
                         >
@@ -351,17 +361,17 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                     </div>
 
                     {/* Properties Row (Notion-like inline properties) */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#5a5852]">
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#5a5852] dark:text-[#a5a4a0]">
                       <label className="flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-[#9b9a97]" />
+                        <Calendar className="w-3.5 h-3.5 text-[#9b9a97] dark:text-[#787774]" />
                         <span>Esame:</span>
                         <input
                           type="date"
                           value={exam.examDate}
                           onChange={(e) => onUpdateExam({ ...exam, examDate: e.target.value })}
-                          className="bg-white border border-[#e2e1dd] rounded px-1.5 py-0.5 text-xs"
+                          className="bg-white dark:bg-[#1e1e1e] border border-[#e2e1dd] dark:border-[#363636] text-[#37352f] dark:text-[#e3e2df] rounded px-1.5 py-0.5 text-xs"
                         />
-                        <span className="text-[#9b9a97]">
+                        <span className="text-[#9b9a97] dark:text-[#787774]">
                           ({formatItalianDate(exam.examDate)})
                         </span>
                       </label>
@@ -373,7 +383,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                           onChange={(e) =>
                             onUpdateExam({ ...exam, priority: e.target.value as Priority })
                           }
-                          className="bg-white border border-[#e2e1dd] rounded px-1.5 py-0.5 text-xs"
+                          className="bg-white dark:bg-[#1e1e1e] border border-[#e2e1dd] dark:border-[#363636] text-[#37352f] dark:text-[#e3e2df] rounded px-1.5 py-0.5 text-xs"
                         >
                           <option value="high">Alta</option>
                           <option value="medium">Media</option>
@@ -391,7 +401,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                           onChange={(e) =>
                             onUpdateExam({ ...exam, reviewDays: Math.max(0, Number(e.target.value)) })
                           }
-                          className="w-12 bg-white border border-[#e2e1dd] rounded px-1.5 py-0.5 text-xs tabular-nums"
+                          className="w-12 bg-white dark:bg-[#1e1e1e] border border-[#e2e1dd] dark:border-[#363636] text-[#37352f] dark:text-[#e3e2df] rounded px-1.5 py-0.5 text-xs tabular-nums"
                         />
                         <span>giorni</span>
                       </label>
@@ -401,7 +411,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
 
                 <button
                   onClick={() => onDeleteExam(exam.id)}
-                  className="p-1.5 rounded text-[#9b9a97] hover:text-[#d44c47] hover:bg-[#fdebec] transition-colors"
+                  className="p-1.5 rounded text-[#9b9a97] dark:text-[#787774] hover:text-[#d44c47] dark:hover:text-[#eb7c7f] hover:bg-[#fdebec] dark:hover:bg-[#3b2022] transition-colors"
                   title="Elimina esame"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -411,12 +421,12 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
               {/* Books Table */}
               <div className="p-5 space-y-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#787774] uppercase tracking-wider">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#787774] dark:text-[#9b9a97] uppercase tracking-wider">
                     <BookOpen className="w-3.5 h-3.5" />
                     <span>Libri e Materiali</span>
                   </div>
                   {feas && (
-                    <span className="text-xs text-[#787774] tabular-nums">
+                    <span className="text-xs text-[#787774] dark:text-[#9b9a97] tabular-nums">
                       Restano {feas.remainingPages} pp. (~{feas.remainingStudyHours}h)
                     </span>
                   )}
@@ -431,7 +441,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                     return (
                       <div
                         key={book.id}
-                        className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center p-2.5 rounded-md border border-[#ecebe8] bg-white hover:bg-[#fbfbfa]"
+                        className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center p-2.5 rounded-md border border-[#ecebe8] dark:border-[#2f2f2f] bg-white dark:bg-[#1e1e1e] hover:bg-[#fbfbfa] dark:hover:bg-[#252525]"
                       >
                         <div className="sm:col-span-5">
                           <input
@@ -440,21 +450,25 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                             onChange={(e) =>
                               handleUpdateBook(exam, book.id, { title: e.target.value })
                             }
-                            className="w-full text-sm font-medium text-[#37352f] bg-transparent border-b border-transparent focus:border-[#2383e2] focus:outline-none"
+                            className="w-full text-sm font-medium text-[#37352f] dark:text-[#e3e2df] bg-transparent border-b border-transparent focus:border-[#2383e2] focus:outline-none"
                           />
                           <div className="mt-1.5 flex items-center gap-2">
-                            <div className="flex-1 h-1.5 rounded-full bg-[#efefed] overflow-hidden">
+                            <div className="flex-1 h-1.5 rounded-full bg-[#efefed] dark:bg-[#2f2f2f] overflow-hidden">
                               <div
                                 className={`h-full ${color.progress}`}
                                 style={{ width: `${pct}%` }}
                               />
                             </div>
-                            <span className="text-[11px] text-[#787774] tabular-nums">{pct}%</span>
+                            <span className="text-[11px] text-[#787774] dark:text-[#9b9a97] tabular-nums">
+                              {pct}%
+                            </span>
                           </div>
                         </div>
 
                         <div className="sm:col-span-2">
-                          <label className="block text-[10px] text-[#9b9a97]">Fatte</label>
+                          <label className="block text-[10px] text-[#9b9a97] dark:text-[#787774]">
+                            Fatte
+                          </label>
                           <input
                             type="number"
                             min={0}
@@ -468,12 +482,14 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                                 ),
                               })
                             }
-                            className="w-full px-2 py-1 rounded border border-[#e2e1dd] text-xs tabular-nums"
+                            className="w-full px-2 py-1 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-xs tabular-nums"
                           />
                         </div>
 
                         <div className="sm:col-span-2">
-                          <label className="block text-[10px] text-[#9b9a97]">Totali</label>
+                          <label className="block text-[10px] text-[#9b9a97] dark:text-[#787774]">
+                            Totali
+                          </label>
                           <input
                             type="number"
                             min={1}
@@ -483,12 +499,14 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                                 totalPages: Math.max(1, Number(e.target.value)),
                               })
                             }
-                            className="w-full px-2 py-1 rounded border border-[#e2e1dd] text-xs tabular-nums"
+                            className="w-full px-2 py-1 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-xs tabular-nums"
                           />
                         </div>
 
                         <div className="sm:col-span-2">
-                          <label className="block text-[10px] text-[#9b9a97]">Pagine / ora</label>
+                          <label className="block text-[10px] text-[#9b9a97] dark:text-[#787774]">
+                            Pagine / ora
+                          </label>
                           <input
                             type="number"
                             min={1}
@@ -498,14 +516,14 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
                                 pagesPerHour: Math.max(1, Number(e.target.value)),
                               })
                             }
-                            className="w-full px-2 py-1 rounded border border-[#e2e1dd] text-xs tabular-nums"
+                            className="w-full px-2 py-1 rounded border border-[#e2e1dd] dark:border-[#363636] bg-white dark:bg-[#252525] text-[#37352f] dark:text-[#e3e2df] text-xs tabular-nums"
                           />
                         </div>
 
                         <div className="sm:col-span-1 flex justify-end">
                           <button
                             onClick={() => handleDeleteBook(exam, book.id)}
-                            className="p-1.5 rounded text-[#9b9a97] hover:text-[#d44c47] hover:bg-[#fdebec]"
+                            className="p-1.5 rounded text-[#9b9a97] dark:text-[#787774] hover:text-[#d44c47] dark:hover:text-[#eb7c7f] hover:bg-[#fdebec] dark:hover:bg-[#3b2022]"
                             title="Rimuovi libro"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -518,7 +536,7 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
 
                 <button
                   onClick={() => handleAddBook(exam)}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-[#787774] hover:text-[#37352f] px-2 py-1 rounded hover:bg-[#f1f1ef] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-[#787774] dark:text-[#9b9a97] hover:text-[#37352f] dark:hover:text-[#e3e2df] px-2 py-1 rounded hover:bg-[#f1f1ef] dark:hover:bg-[#282828] transition-colors"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Aggiungi libro o dispensa</span>
@@ -531,4 +549,3 @@ export const ExamsView: React.FC<ExamsViewProps> = ({
     </div>
   );
 };
-
